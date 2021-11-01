@@ -10,7 +10,8 @@ import {
   DirectionalLight,
   Vector3,
   Color3,
-  SceneLoader
+  SceneLoader,
+  DeviceOrientationCamera
 } from "@babylonjs/core";
 import "@babylonjs/inspector";
 
@@ -26,29 +27,51 @@ const scene = new Scene(engine);
 // Default Environment
 
 //vytoření kamery v pozici -5 (dozadu)
-const camera = new UniversalCamera("Camera", new Vector3(0, 5, 10), scene);
+//const camera = new UniversalCamera("Camera", new Vector3(0, 5, 10), scene);
+//const camera = new UniversalCamera("Cameraa", new Vector3(1, 1, 1), scene);
+const camera = new DeviceOrientationCamera(
+  "Cameraa",
+  new Vector3(1, 1, 10),
+  scene
+);
 
 //zaměřit kameru do středu
-camera.setTarget(Vector3.Zero());
+//camera.setTarget(Vector3.Zero());
+camera.setTarget(new Vector3(0, 0, 0), scene);
 
 //spojení kamery a grafikcého okna
 camera.attachControl(canvas, true);
 
+// var i = 0;
+// for (i = 0; i < 5; i++) {
+//   // Our built-in 'sphere' shape.
+//   var sphere = MeshBuilder.CreateCylinder(
+//     "sphere",
+//     { diameter: i * 0.2, height: 3, segments: 32 },
+//     scene
+//   );
+//   sphere.position.y = 2;
+//   sphere.position.x = i - 2;
+
+//   if (i === 2) {
+//     var blueMat = new StandardMaterial("blueMat", scene);
+//     blueMat.diffuseColor = new Color3(0.5, 0.5, 0.6);
+//     sphere.material = blueMat;
+//   }
+// }
 var i = 0;
 for (i = 0; i < 5; i++) {
-  // Our built-in 'sphere' shape.
   var sphere = MeshBuilder.CreateCylinder(
-    "sphere",
-    { diameter: i * 0.2, height: 3, segments: 32 },
+    "valecek",
+    { diameter: 0.2, height: 3 },
     scene
   );
-  sphere.position.y = 2;
-  sphere.position.x = i - 2;
-
+  sphere.position.x = i;
+  // === porovná to
   if (i === 2) {
-    var blueMat = new StandardMaterial("blueMat", scene);
-    blueMat.diffuseColor = new Color3(0.5, 0.5, 0.6);
-    sphere.material = blueMat;
+    var mat = new StandardMaterial("sedy", scene);
+    mat.diffuseColor = new Color3(0.5, 0.5, 0.6);
+    sphere.material = mat;
   }
 }
 
